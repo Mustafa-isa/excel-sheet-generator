@@ -5,22 +5,26 @@ tableExists = false
 
 const generateTable = () => {
     let rowsNumber = parseInt(rows.value), columnsNumber = parseInt(columns.value)
-    table.innerHTML = ""
-    for(let i=0; i<rowsNumber; i++){
-        var tableRow = ""
-        for(let j=0; j<columnsNumber; j++){
-            tableRow += `<td contenteditable></td>`
-        }
-        table.innerHTML += tableRow
+if(!rowsNumber || !columnsNumber){
+  Swal.fire( 'Please enter your inputs', );
+}
+table.innerHTML = ""
+for(let i=0; i<rowsNumber; i++){
+    var tableRow = ""
+    for(let j=0; j<columnsNumber; j++){
+        tableRow += `<td contenteditable></td>`
     }
-    if(rowsNumber>0 && columnsNumber>0){
-        tableExists = true
-    }
+    table.innerHTML += tableRow
+}
+if(rowsNumber>0 && columnsNumber>0){
+    tableExists = true
+}
 }
 
 const ExportToExcel = (type, fn, dl) => {
     if(!tableExists){
-        return
+  Swal.fire( 'ther is not ceils generted' );
+
     }
     var elt = table
     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" })
